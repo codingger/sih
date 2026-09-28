@@ -164,86 +164,94 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
             {/* Graphic Schematic Representation */}
             <div
               onClick={() => navigate(isMaitri ? '/maitri' : '/bharati')}
-              className="w-full h-56 rounded-xl bg-slate-950/70 border border-slate-800 p-4 relative flex flex-col items-center justify-center cursor-pointer group hover:border-cyan-500/50 transition-all"
+              className="w-full rounded-xl bg-slate-950/75 border border-slate-800 hover:border-cyan-500/50 p-4 sm:p-5 relative flex flex-col items-center justify-center gap-3.5 cursor-pointer group transition-all duration-300 overflow-hidden"
             >
               {/* Polar Grid Backdrop */}
               <div className="absolute inset-0 polar-grid opacity-30 pointer-events-none rounded-xl" />
 
               {/* Station Blueprint Wireframe Graphic */}
-              <div className="relative z-10 w-full max-w-md border border-cyan-500/30 rounded-xl p-4 bg-slate-900/60 backdrop-blur-sm group-hover:scale-[1.02] transition-transform">
-                <div className="text-center font-bold text-white text-xs tracking-wider mb-3">
-                  🏢 {station.name.toUpperCase()} MAIN HABITAT COMPLEX
+              <div className="relative z-10 w-full max-w-lg border border-cyan-500/30 rounded-xl p-3.5 sm:p-4 bg-slate-900/70 backdrop-blur-md group-hover:scale-[1.01] transition-transform shadow-lg shadow-black/40">
+                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-3">
+                  <div className="flex items-center gap-1.5 font-bold text-white text-xs tracking-wider font-mono">
+                    <span className="text-cyan-400">🏢</span>
+                    <span>{station.name.toUpperCase()} COMPLEX BLUEPRINT</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 font-semibold">
+                    SCADA ACTIVE
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                <div className="grid grid-cols-3 gap-2 sm:gap-2.5 text-center text-[10px] font-mono">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200">Generator #01</div>
-                    <div className="text-emerald-400">68% Load</div>
+                    <div className="text-slate-200 font-medium">{isMaitri ? 'Generator #01' : 'MAN Genset A'}</div>
+                    <div className="text-emerald-400 font-bold">{isMaitri ? '68% Load' : '58% Load'}</div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200">Central Heating</div>
-                    <div className="text-emerald-400">64°C Glycol</div>
+                    <div className="text-slate-200 font-medium">Central Heating</div>
+                    <div className="text-emerald-400 font-bold">64°C Glycol</div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-amber-500/30 transition-colors">
                     <span className="inline-block w-2 h-2 rounded-full bg-amber-400 mb-1" />
-                    <div className="text-slate-200">{isMaitri ? 'Lake Water Line' : 'SWRO Desal'}</div>
-                    <div className="text-amber-400">{isMaitri ? 'Trace Heat' : '2.8 m³/d'}</div>
+                    <div className="text-slate-200 font-medium">{isMaitri ? 'Lake Water Line' : 'SWRO Desal'}</div>
+                    <div className="text-amber-400 font-bold">{isMaitri ? 'Trace Heat' : '2.8 m³/d'}</div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200">Battery BESS</div>
-                    <div className="text-cyan-400">{station.telemetry.batterySOC}% SOC</div>
+                    <div className="text-slate-200 font-medium">Battery BESS</div>
+                    <div className="text-cyan-400 font-bold">{station.telemetry.batterySOC}% SOC</div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-rose-500/30 transition-colors">
                     <span className={`inline-block w-2 h-2 rounded-full mb-1 ${isMaitri ? 'bg-rose-500 pulse-critical' : 'bg-emerald-400'}`} />
-                    <div className="text-slate-200">Generator #02</div>
-                    <div className={isMaitri ? 'text-rose-400 font-bold' : 'text-emerald-400'}>
-                      {isMaitri ? '104°C CRIT' : 'Standby'}
+                    <div className="text-slate-200 font-medium">{isMaitri ? 'Generator #02' : 'MAN Genset B'}</div>
+                    <div className={isMaitri ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}>
+                      {isMaitri ? '104°C CRIT' : 'Standby Ready'}
                     </div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200">Polar Radome</div>
-                    <div className="text-cyan-400">48 Mbps</div>
+                    <div className="text-slate-200 font-medium">{isMaitri ? 'Polar Radome' : 'Wind Turbine'}</div>
+                    <div className="text-cyan-400 font-bold">{isMaitri ? '48 Mbps' : '38 kW WTG'}</div>
                   </div>
                 </div>
               </div>
 
-              <div className="text-[10px] text-cyan-400 font-mono mt-3 flex items-center gap-1.5">
-                <Sparkles className="w-3 h-3" />
+              {/* Action Button Pill */}
+              <div className="relative z-10 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono group-hover:bg-cyan-900/60 group-hover:border-cyan-400 group-hover:text-white transition-all shadow-md shadow-cyan-950/50">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse shrink-0" />
                 <span>Click to inspect interactive 3D blueprint hotspots & diagnostics</span>
+                <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0" />
               </div>
             </div>
           </div>
 
           {/* Live Readout Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-4 pt-3 border-t border-cyan-500/20 text-center font-mono">
-            <div className="p-1.5 rounded bg-slate-900/60 border border-slate-800">
-              <div className="text-[10px] text-slate-400">TEMP</div>
-              <div className="text-xs font-bold text-white">{station.telemetry.temperature}°C</div>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-4 pt-3.5 border-t border-cyan-500/20 text-center font-mono">
+            <div className="p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+              <div className="text-[10px] text-slate-400 font-medium">TEMP</div>
+              <div className="text-xs font-bold text-white mt-0.5">{station.telemetry.temperature}°C</div>
             </div>
-            <div className="p-1.5 rounded bg-slate-900/60 border border-slate-800">
-              <div className="text-[10px] text-slate-400">WIND</div>
-              <div className="text-xs font-bold text-cyan-300">{station.telemetry.windSpeed} km/h</div>
+            <div className="p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+              <div className="text-[10px] text-slate-400 font-medium">WIND</div>
+              <div className="text-xs font-bold text-cyan-300 mt-0.5">{station.telemetry.windSpeed} km/h</div>
             </div>
-            <div className="p-1.5 rounded bg-slate-900/60 border border-slate-800">
-              <div className="text-[10px] text-slate-400">POWER</div>
-              <div className="text-xs font-bold text-white">{station.telemetry.powerGeneration} kW</div>
+            <div className="p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+              <div className="text-[10px] text-slate-400 font-medium">POWER</div>
+              <div className="text-xs font-bold text-white mt-0.5">{station.telemetry.powerGeneration} kW</div>
             </div>
-            <div className="p-1.5 rounded bg-slate-900/60 border border-slate-800">
-              <div className="text-[10px] text-slate-400">FUEL</div>
-              <div className="text-xs font-bold text-amber-400">{station.telemetry.fuelLevel}%</div>
+            <div className="p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+              <div className="text-[10px] text-slate-400 font-medium">FUEL</div>
+              <div className="text-xs font-bold text-amber-400 mt-0.5">{station.telemetry.fuelLevel}%</div>
             </div>
-            <div className="p-1.5 rounded bg-slate-900/60 border border-slate-800 col-span-2 sm:col-span-1">
-              <div className="text-[10px] text-slate-400">WATER</div>
-              <div className="text-xs font-bold text-emerald-400">{station.telemetry.waterReserve}%</div>
+            <div className="p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 col-span-2 sm:col-span-1">
+              <div className="text-[10px] text-slate-400 font-medium">WATER</div>
+              <div className="text-xs font-bold text-emerald-400 mt-0.5">{station.telemetry.waterReserve}%</div>
             </div>
           </div>
         </div>
