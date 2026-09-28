@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 import { Sliders, Play, RotateCcw, AlertTriangle, ShieldCheck, Flame, CloudSnow, Ship, Zap, Activity } from 'lucide-react';
 import { SIMULATION_SCENARIOS, STATIONS } from '../data/mockData';
 
 export default function Simulation({ currentStationId, stationData, crisisScenario, onTriggerCrisis, onResetCrisis }) {
+  const { addToast } = useToast();
   const [activeScenarioId, setActiveScenarioId] = useState(crisisScenario ? crisisScenario.id : 'blizzard');
 
   const station = stationData || STATIONS[currentStationId] || STATIONS.maitri;
@@ -12,10 +14,22 @@ export default function Simulation({ currentStationId, stationData, crisisScenar
 
   const handleRunSimulation = () => {
     if (onTriggerCrisis) onTriggerCrisis(currentScenario);
+    addToast({
+      title: `${currentScenario.name} Engaged`,
+      message: 'Telemetry stream overridden across all station nodes. Emergency protocols initiated.',
+      type: 'critical',
+      duration: 5500
+    });
   };
 
   const handleResetSimulation = () => {
     if (onResetCrisis) onResetCrisis();
+    addToast({
+      title: 'Simulation Disengaged',
+      message: 'Telemetry restored to live polar satellite baseline feeds.',
+      type: 'info',
+      duration: 4000
+    });
   };
 
   // Simulated metrics calculation

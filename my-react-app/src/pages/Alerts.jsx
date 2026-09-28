@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AlertCard from '../components/AlertCard';
 import EmptyState from '../components/EmptyState';
+import { useToast } from '../context/ToastContext';
 import { AlertTriangle, AlertCircle, Info, CheckCircle2, Search, Filter } from 'lucide-react';
 import { ALERTS_LIST, STATIONS } from '../data/mockData';
 import { api } from '../services/api';
 
 export default function Alerts({ currentStationId, alerts: globalAlerts, onAcknowledgeAlert }) {
+  const { addToast } = useToast();
   const [localAlerts, setLocalAlerts] = useState(() => ALERTS_LIST);
   const alerts = globalAlerts || localAlerts;
   const [filterSeverity, setFilterSeverity] = useState('ALL');
@@ -15,6 +17,13 @@ export default function Alerts({ currentStationId, alerts: globalAlerts, onAckno
 
   const handleAcknowledge = async (id) => {
     await api.acknowledgeAlert(id);
+    const targetAlert = alerts.find(a => a.id === id);
+    addToast({
+      title: `Incident ${id} Acknowledged`,
+      message: targetAlert ? targetAlert.title : 'Incident marked acknowledged by Command HQ operator.',
+      type: 'info',
+      duration: 4000
+    });
     if (onAcknowledgeAlert) {
       onAcknowledgeAlert(id);
     } else {

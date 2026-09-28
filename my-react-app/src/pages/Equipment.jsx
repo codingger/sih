@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import EquipmentCard from '../components/EquipmentCard';
 import EmptyState from '../components/EmptyState';
 import { StaggerContainer, StaggerItem } from '../components/StaggerContainer';
+import { useToast } from '../context/ToastContext';
 import { Wrench, Search, Filter, X, CheckCircle2, ShieldAlert } from 'lucide-react';
 import { EQUIPMENT_LIST, STATIONS } from '../data/mockData';
 
 export default function Equipment({ currentStationId }) {
+  const { addToast } = useToast();
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [inspectEquipment, setInspectEquipment] = useState(null);
@@ -110,83 +113,104 @@ export default function Equipment({ currentStationId }) {
       )}
 
       {/* Diagnostics Modal */}
-      {inspectEquipment && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="glass-panel-glow rounded-2xl max-w-lg w-full p-6 border border-cyan-500/40 relative">
-            <div className="flex items-start justify-between pb-3 border-b border-cyan-500/20">
-              <div>
-                <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold">
-                  EQUIPMENT DIAGNOSTIC SCAN
-                </span>
-                <h3 className="text-xl font-bold text-white mt-0.5">
-                  {inspectEquipment.name}
-                </h3>
-                <div className="text-xs text-slate-400 font-mono">
-                  SN: {inspectEquipment.serial} • Location: {inspectEquipment.location}
-                </div>
-              </div>
-              <button
-                onClick={() => setInspectEquipment(null)}
-                className="p-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="my-4 space-y-3 font-mono text-xs">
-              <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 grid grid-cols-2 gap-3">
+      <AnimatePresence>
+        {inspectEquipment && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setInspectEquipment(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.24, ease: 'easeOut' }}
+              className="glass-panel-glow rounded-2xl max-w-lg w-full p-6 border border-cyan-500/40 relative shadow-2xl shadow-cyan-950/50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between pb-3 border-b border-cyan-500/20">
                 <div>
-                  <div className="text-[10px] text-slate-400">HEALTH SCORE</div>
-                  <div className={`text-lg font-bold ${inspectEquipment.health < 50 ? 'text-rose-400' : inspectEquipment.health < 80 ? 'text-amber-400' : 'text-emerald-400'}`}>
-                    {inspectEquipment.health}% / 100
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] text-slate-400">CURRENT LOAD</div>
-                  <div className="text-lg font-bold text-cyan-300">
-                    {inspectEquipment.load}% Continuous
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Runtime Accumulated:</span>
-                  <span className="text-white font-bold">{inspectEquipment.runtimeHours} Hours</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Last Overhaul:</span>
-                  <span className="text-white">{inspectEquipment.lastServiced}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Next Service Window:</span>
-                  <span className={inspectEquipment.nextServiceDue.includes('OVERDUE') ? 'text-rose-400 font-bold' : 'text-slate-200'}>
-                    {inspectEquipment.nextServiceDue}
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold">
+                    EQUIPMENT DIAGNOSTIC SCAN
                   </span>
+                  <h3 className="text-xl font-bold text-white mt-0.5">
+                    {inspectEquipment.name}
+                  </h3>
+                  <div className="text-xs text-slate-400 font-mono">
+                    SN: {inspectEquipment.serial} • Location: {inspectEquipment.location}
+                  </div>
+                </div>
+                <button
+                  onClick={() => setInspectEquipment(null)}
+                  className="p-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="my-4 space-y-3 font-mono text-xs">
+                <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 grid grid-cols-2 gap-3">
+                  <div>
+                    <div className="text-[10px] text-slate-400">HEALTH SCORE</div>
+                    <div className={`text-lg font-bold ${inspectEquipment.health < 50 ? 'text-rose-400' : inspectEquipment.health < 80 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                      {inspectEquipment.health}% / 100
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-400">CURRENT LOAD</div>
+                    <div className="text-lg font-bold text-cyan-300">
+                      {inspectEquipment.load}% Continuous
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Runtime Accumulated:</span>
+                    <span className="text-white font-bold">{inspectEquipment.runtimeHours} Hours</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Last Overhaul:</span>
+                    <span className="text-white">{inspectEquipment.lastServiced}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Next Service Window:</span>
+                    <span className={inspectEquipment.nextServiceDue.includes('OVERDUE') ? 'text-rose-400 font-bold' : 'text-slate-200'}>
+                      {inspectEquipment.nextServiceDue}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
-              <button
-                onClick={() => setInspectEquipment(null)}
-                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold cursor-pointer"
-              >
-                Close Diagnostic
-              </button>
-              <button
-                onClick={() => {
-                  alert(`Diagnostic report exported for ${inspectEquipment.name}`);
-                  setInspectEquipment(null);
-                }}
-                className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-mono font-bold cursor-pointer"
-              >
-                Export SCADA Telemetry
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                <button
+                  onClick={() => setInspectEquipment(null)}
+                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold cursor-pointer"
+                >
+                  Close Diagnostic
+                </button>
+                <button
+                  onClick={() => {
+                    addToast({
+                      title: 'SCADA Telemetry Exported',
+                      message: `Diagnostic dataset and vibration telemetry for ${inspectEquipment.name} compiled and queued for transmission.`,
+                      type: 'success',
+                      duration: 4500
+                    });
+                    setInspectEquipment(null);
+                  }}
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-mono font-bold cursor-pointer transition-all shadow-md shadow-cyan-500/20"
+                >
+                  Export SCADA Telemetry
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

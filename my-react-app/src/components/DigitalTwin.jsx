@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from '../context/ToastContext';
 import {
   Zap,
   Thermometer,
@@ -31,6 +32,7 @@ import {
 } from 'recharts';
 
 export default function DigitalTwin({ stationData, stationId = 'maitri' }) {
+  const { addToast } = useToast();
   const [selectedHotspot, setSelectedHotspot] = useState(null);
   const [hoveredHotspot, setHoveredHotspot] = useState(null);
   const [showFlows, setShowFlows] = useState(true);
@@ -58,6 +60,12 @@ export default function DigitalTwin({ stationData, stationId = 'maitri' }) {
 
   const handleExecuteRemediation = () => {
     setRemediationTriggered(true);
+    addToast({
+      title: 'Automated Remediation Dispatched',
+      message: selectedHotspot?.action || 'Station load shedding and auxiliary circuit re-routing engaged via PLC.',
+      type: selectedHotspot?.status === 'critical' ? 'warning' : 'success',
+      duration: 5500
+    });
   };
 
   React.useEffect(() => {

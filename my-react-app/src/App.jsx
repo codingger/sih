@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import { PageLoader } from './components/LoadingSkeleton';
+import { ToastProvider, useToast } from './context/ToastContext';
 import { useLiveData } from './hooks/useLiveData';
 import { ALERTS_LIST } from './data/mockData';
 
@@ -38,8 +39,22 @@ function Layout({
   onTriggerCrisis,
   onResetCrisis
 }) {
+  const { addToast } = useToast();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+
+  const handleAcknowledgeAlertWithToast = (alertId) => {
+    const target = alerts.find(a => a.id === alertId);
+    if (location.pathname !== '/alerts') {
+      addToast({
+        title: `Incident ${alertId} Acknowledged`,
+        message: target ? target.title : 'Incident marked acknowledged by Command HQ operator.',
+        type: 'info',
+        duration: 4000
+      });
+    }
+    if (onAcknowledgeAlert) onAcknowledgeAlert(alertId);
+  };
 
   // Scroll to top on route change
   useEffect(() => {
@@ -107,7 +122,7 @@ function Layout({
                     lastUpdated={lastUpdated}
                     onSelectStation={onSelectStation}
                     alerts={alerts}
-                    onAcknowledgeAlert={onAcknowledgeAlert}
+                    onAcknowledgeAlert={handleAcknowledgeAlertWithToast}
                   />
                 }
               />
@@ -120,7 +135,7 @@ function Layout({
                     lastUpdated={lastUpdated}
                     onSelectStation={onSelectStation}
                     alerts={alerts}
-                    onAcknowledgeAlert={onAcknowledgeAlert}
+                    onAcknowledgeAlert={handleAcknowledgeAlertWithToast}
                   />
                 }
               />
@@ -231,18 +246,20 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Layout
-        currentStationId={currentStationId}
-        onSelectStation={handleSelectStation}
-        stationData={stationData}
-        lastUpdated={lastUpdated}
-        alerts={alerts}
-        onAcknowledgeAlert={handleAcknowledgeAlert}
-        crisisScenario={crisisScenario}
-        onTriggerCrisis={(sc) => setCrisisScenario(sc)}
-        onResetCrisis={() => setCrisisScenario(null)}
-      />
-    </BrowserRouter>
+    <ToastProvider>
+      <BrowserRouter>
+        <Layout
+          currentStationId={currentStationId}
+          onSelectStation={handleSelectStation}
+          stationData={stationData}
+          lastUpdated={lastUpdated}
+          alerts={alerts}
+          onAcknowledgeAlert={handleAcknowledgeAlert}
+          crisisScenario={crisisScenario}
+          onTriggerCrisis={(sc) => setCrisisScenario(sc)}
+          onResetCrisis={() => setCrisisScenario(null)}
+        />
+      </BrowserRouter>
+    </ToastProvider>
   );
 }

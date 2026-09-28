@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EnergyChart from '../components/EnergyChart';
 import StatCard from '../components/StatCard';
 import SensorCard from '../components/SensorCard';
-import { Zap, Sun, Gauge, BatteryCharging, Sparkles, AlertCircle, ArrowUpRight } from 'lucide-react';
+import { useToast } from '../context/ToastContext';
+import { Zap, Sun, Gauge, BatteryCharging, Sparkles, AlertCircle, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { STATIONS, HOURLY_TELEMETRY } from '../data/mockData';
 
 export default function Energy({ currentStationId, stationData }) {
+  const { addToast } = useToast();
+  const [isOptimized, setIsOptimized] = useState(false);
   const station = stationData || STATIONS[currentStationId] || STATIONS.maitri;
   const isMaitri = currentStationId === 'maitri';
+
+  const handleApplyOptimization = () => {
+    setIsOptimized(true);
+    addToast({
+      title: 'Microgrid Dispatch Optimization Applied',
+      message: isMaitri
+        ? 'Secondary load shed engaged: 24 kW diverted to BESS Bank #1. Gen #02 temperature stabilizing.'
+        : 'Wind-Solar hybrid balancing profile dispatched to station PLC (harmonic distortion < 0.8%).',
+      type: 'success',
+      duration: 5000
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -177,9 +192,19 @@ export default function Energy({ currentStationId, stationData }) {
 
           <div className="mt-4 pt-3 border-t border-cyan-500/20 flex items-center justify-between">
             <span className="text-xs font-mono text-slate-400">Recommendation Confidence: 96.4%</span>
-            <button className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs font-mono cursor-pointer hover:from-cyan-400 hover:to-blue-500 transition-all">
-              Apply Microgrid Optimization
-            </button>
+            {isOptimized ? (
+              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-bold text-xs font-mono">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Optimization Active</span>
+              </span>
+            ) : (
+              <button
+                onClick={handleApplyOptimization}
+                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs font-mono cursor-pointer transition-all shadow-md shadow-cyan-500/20"
+              >
+                Apply Microgrid Optimization
+              </button>
+            )}
           </div>
         </div>
       </div>

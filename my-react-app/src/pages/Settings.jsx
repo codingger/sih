@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 
 export default function Settings() {
+  const { addToast } = useToast();
   const [lowBandwidth, setLowBandwidth] = useState(
     () => localStorage.getItem('ncpor_low_bandwidth') === 'true'
   );
@@ -12,12 +14,26 @@ export default function Settings() {
     setLowBandwidth(val);
     localStorage.setItem('ncpor_low_bandwidth', String(val));
     window.dispatchEvent(new Event('ncpor-settings-changed'));
+    addToast({
+      title: val ? 'Low-Bandwidth Mode Active' : 'Standard Bandwidth Restored',
+      message: val
+        ? 'Telemetry polling throttled to 6.0s. Graphic animations optimized for Iridium/BGAN.'
+        : 'Standard real-time telemetry streaming active (full animations enabled).',
+      type: 'info',
+      duration: 4000
+    });
   };
 
   const handleRefreshChange = (val) => {
     setRefreshRate(val);
     localStorage.setItem('ncpor_refresh_rate', val);
     window.dispatchEvent(new Event('ncpor-settings-changed'));
+    addToast({
+      title: 'Telemetry Jitter Rate Updated',
+      message: `SCADA polling rate set to ${val / 1000}s interval. Real-time stream synchronized.`,
+      type: 'info',
+      duration: 3500
+    });
   };
 
   return (

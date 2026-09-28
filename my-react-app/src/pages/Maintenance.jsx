@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 import { Cpu, AlertTriangle, Clock, Calendar, CheckCircle2, ArrowRight, ShieldCheck, Activity, Sparkles } from 'lucide-react';
 import { PREDICTIVE_MAINTENANCE, STATIONS } from '../data/mockData';
 
 export default function Maintenance({ currentStationId }) {
+  const { addToast } = useToast();
   const [items, setItems] = useState(() => PREDICTIVE_MAINTENANCE);
   const [scheduledId, setScheduledId] = useState(null);
 
   const station = STATIONS[currentStationId] || STATIONS.maitri;
   const stationItems = items.filter(i => i.station === currentStationId);
 
-  const handleScheduleService = (id) => {
-    setScheduledId(id);
-    setTimeout(() => {
-      alert(`Service work-order created and dispatched to Polar Station Maintenance Depot.`);
-    }, 100);
+  const handleScheduleService = (item) => {
+    setScheduledId(item.id);
+    addToast({
+      title: `Work Order WO-${item.id} Logged`,
+      message: `Polar maintenance depot notified for ${item.equipmentName}. Required spares reserved from Spares Bin #P-44.`,
+      type: 'success',
+      duration: 5000
+    });
   };
 
   return (
@@ -151,7 +156,7 @@ export default function Maintenance({ currentStationId }) {
                     </div>
                   ) : (
                     <button
-                      onClick={() => handleScheduleService(item.id)}
+                      onClick={() => handleScheduleService(item)}
                       className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs cursor-pointer shadow-md shadow-cyan-500/20 transition-all flex items-center justify-center gap-1.5"
                     >
                       <Calendar className="w-3.5 h-3.5" />
