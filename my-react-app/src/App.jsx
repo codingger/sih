@@ -85,7 +85,7 @@ function Layout({
           alerts={alerts}
         />
 
-        <main className="flex-1 lg:pl-64 pt-4 pb-12 px-4 sm:px-6 polar-grid min-h-[calc(100vh-3.5rem)] overflow-x-hidden">
+        <main className="flex-1 min-w-0 pt-6 sm:pt-8 pb-16 px-5 sm:px-8 lg:px-10 polar-grid min-h-[calc(100vh-3.5rem)] overflow-x-hidden">
           <div className="max-w-7xl mx-auto">
             <AnimatePresence mode="wait">
               <motion.div

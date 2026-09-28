@@ -79,8 +79,8 @@ export default function Sidebar({ currentStationId, isOpen, onClose, alerts = AL
       )}
 
       <aside
-        className={`fixed top-14 bottom-0 left-0 z-40 w-64 glass-panel border-r border-cyan-500/20 flex flex-col justify-between transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed lg:sticky top-14 bottom-0 lg:bottom-auto left-0 z-40 w-64 lg:h-[calc(100vh-3.5rem)] shrink-0 glass-panel border-r border-cyan-500/20 flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Navigation Links */}
