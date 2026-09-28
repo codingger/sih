@@ -4,8 +4,9 @@ import { AlertTriangle, AlertCircle, Info, CheckCircle2, Search, Filter } from '
 import { ALERTS_LIST, STATIONS } from '../data/mockData';
 import { api } from '../services/api';
 
-export default function Alerts({ currentStationId }) {
-  const [alerts, setAlerts] = useState(() => ALERTS_LIST);
+export default function Alerts({ currentStationId, alerts: globalAlerts, onAcknowledgeAlert }) {
+  const [localAlerts, setLocalAlerts] = useState(() => ALERTS_LIST);
+  const alerts = globalAlerts || localAlerts;
   const [filterSeverity, setFilterSeverity] = useState('ALL');
   const [search, setSearch] = useState('');
 
@@ -13,7 +14,11 @@ export default function Alerts({ currentStationId }) {
 
   const handleAcknowledge = async (id) => {
     await api.acknowledgeAlert(id);
-    setAlerts(prev => prev.map(a => a.id === id ? { ...a, acknowledged: true, acknowledgedBy: 'HQ Operator' } : a));
+    if (onAcknowledgeAlert) {
+      onAcknowledgeAlert(id);
+    } else {
+      setLocalAlerts(prev => prev.map(a => a.id === id ? { ...a, acknowledged: true, acknowledgedBy: 'HQ Operator' } : a));
+    }
   };
 
   const filteredAlerts = alerts.filter(a => {

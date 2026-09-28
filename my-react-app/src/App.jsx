@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import { useLiveData } from './hooks/useLiveData';
+import { ALERTS_LIST } from './data/mockData';
 
 // Pages
 import Login from './pages/Login';
@@ -21,7 +22,17 @@ import Analytics from './pages/Analytics';
 import Simulation from './pages/Simulation';
 import Settings from './pages/Settings';
 
-function Layout({ currentStationId, onSelectStation, stationData, lastUpdated }) {
+function Layout({
+  currentStationId,
+  onSelectStation,
+  stationData,
+  lastUpdated,
+  alerts,
+  onAcknowledgeAlert,
+  crisisScenario,
+  onTriggerCrisis,
+  onResetCrisis
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -42,6 +53,8 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
         onSelectStation={onSelectStation}
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         isSidebarOpen={isSidebarOpen}
+        crisisScenario={crisisScenario}
+        onResetCrisis={onResetCrisis}
       />
 
       <div className="flex flex-1">
@@ -49,6 +62,7 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
           currentStationId={currentStationId}
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          alerts={alerts}
         />
 
         <main className="flex-1 lg:pl-64 pt-4 pb-12 px-4 sm:px-6 polar-grid min-h-[calc(100vh-3.5rem)] overflow-x-hidden">
@@ -62,6 +76,8 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
                     stationData={stationData}
                     lastUpdated={lastUpdated}
                     onSelectStation={onSelectStation}
+                    alerts={alerts}
+                    onAcknowledgeAlert={onAcknowledgeAlert}
                   />
                 }
               />
@@ -73,6 +89,8 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
                     stationData={stationData}
                     lastUpdated={lastUpdated}
                     onSelectStation={onSelectStation}
+                    alerts={alerts}
+                    onAcknowledgeAlert={onAcknowledgeAlert}
                   />
                 }
               />
@@ -123,7 +141,13 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
               />
               <Route
                 path="/alerts"
-                element={<Alerts currentStationId={currentStationId} />}
+                element={
+                  <Alerts
+                    currentStationId={currentStationId}
+                    alerts={alerts}
+                    onAcknowledgeAlert={onAcknowledgeAlert}
+                  />
+                }
               />
               <Route
                 path="/maintenance"
@@ -139,6 +163,9 @@ function Layout({ currentStationId, onSelectStation, stationData, lastUpdated })
                   <Simulation
                     currentStationId={currentStationId}
                     stationData={stationData}
+                    crisisScenario={crisisScenario}
+                    onTriggerCrisis={onTriggerCrisis}
+                    onResetCrisis={onResetCrisis}
                   />
                 }
               />
@@ -156,12 +183,18 @@ export default function App() {
   const [currentStationId, setCurrentStationId] = useState(() => {
     return localStorage.getItem('ncpor_station') || 'maitri';
   });
+  const [crisisScenario, setCrisisScenario] = useState(null);
+  const [alerts, setAlerts] = useState(() => ALERTS_LIST);
 
-  const { stationData, lastUpdated, isLive } = useLiveData(currentStationId);
+  const { stationData, lastUpdated, isLive } = useLiveData(currentStationId, crisisScenario);
 
   const handleSelectStation = (id) => {
     setCurrentStationId(id);
     localStorage.setItem('ncpor_station', id);
+  };
+
+  const handleAcknowledgeAlert = (alertId) => {
+    setAlerts(prev => prev.map(a => a.id === alertId ? { ...a, acknowledged: true, acknowledgedBy: 'Command HQ' } : a));
   };
 
   return (
@@ -171,6 +204,11 @@ export default function App() {
         onSelectStation={handleSelectStation}
         stationData={stationData}
         lastUpdated={lastUpdated}
+        alerts={alerts}
+        onAcknowledgeAlert={handleAcknowledgeAlert}
+        crisisScenario={crisisScenario}
+        onTriggerCrisis={(sc) => setCrisisScenario(sc)}
+        onResetCrisis={() => setCrisisScenario(null)}
       />
     </BrowserRouter>
   );

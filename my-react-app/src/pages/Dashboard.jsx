@@ -21,13 +21,13 @@ import EnvironmentChart from '../components/EnvironmentChart';
 import Map from '../components/Map';
 import { STATIONS, HOURLY_TELEMETRY, ALERTS_LIST } from '../data/mockData';
 
-export default function Dashboard({ currentStationId, stationData, onSelectStation }) {
+export default function Dashboard({ currentStationId, stationData, onSelectStation, alerts = ALERTS_LIST, onAcknowledgeAlert }) {
   const navigate = useNavigate();
   const station = stationData || STATIONS[currentStationId] || STATIONS.maitri;
   const isMaitri = currentStationId === 'maitri';
 
   // Alerts for active station
-  const stationAlerts = ALERTS_LIST.filter(a => a.station === currentStationId);
+  const stationAlerts = alerts.filter(a => a.station === currentStationId);
 
   return (
     <div className="space-y-6">
@@ -259,7 +259,7 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
 
             <div className="space-y-3">
               {stationAlerts.slice(0, 3).map(alert => (
-                <AlertCard key={alert.id} alert={alert} />
+                <AlertCard key={alert.id} alert={alert} onAcknowledge={onAcknowledgeAlert} />
               ))}
             </div>
           </div>

@@ -13,6 +13,14 @@ export default function Equipment({ currentStationId }) {
 
   const categories = ['ALL', ...new Set(stationEquipment.map(eq => eq.category))];
 
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setInspectEquipment(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const filteredEquipment = stationEquipment.filter(eq => {
     const matchesCat = selectedCategory === 'ALL' || eq.category === selectedCategory;
     const matchesSearch = eq.name.toLowerCase().includes(search.toLowerCase()) ||

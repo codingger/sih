@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Radio, Clock, ShieldCheck, Wifi, Snowflake } from 'lucide-react';
 import StationSelector from './StationSelector';
 
-export default function Navbar({ currentStationId, onSelectStation, onToggleSidebar, isSidebarOpen }) {
+export default function Navbar({ currentStationId, onSelectStation, onToggleSidebar, isSidebarOpen, crisisScenario, onResetCrisis }) {
   const [timeUtc, setTimeUtc] = useState('');
   const [timeIst, setTimeIst] = useState('');
 
@@ -52,6 +52,21 @@ export default function Navbar({ currentStationId, onSelectStation, onToggleSide
 
       {/* Right Controls */}
       <div className="flex items-center gap-2 sm:gap-4">
+        {/* Active Crisis Alert Banner */}
+        {crisisScenario && (
+          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-rose-950/80 border border-rose-500/50 text-rose-300 text-xs font-mono pulse-critical">
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+            <span className="font-bold text-[11px] uppercase hidden sm:inline">CRISIS: {crisisScenario.name.split(' ')[0]}</span>
+            <button
+              onClick={onResetCrisis}
+              className="text-[10px] bg-rose-900/80 hover:bg-rose-800 text-rose-200 px-1.5 py-0.5 rounded cursor-pointer"
+              title="Reset to Live Telemetry"
+            >
+              Reset
+            </button>
+          </div>
+        )}
+
         {/* System Online Status Pill */}
         <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
           <span className="relative flex h-2 w-2">

@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { Sliders, Play, RotateCcw, AlertTriangle, ShieldCheck, Flame, CloudSnow, Ship, Zap, Activity } from 'lucide-react';
 import { SIMULATION_SCENARIOS, STATIONS } from '../data/mockData';
 
-export default function Simulation({ currentStationId, stationData }) {
-  const [activeScenarioId, setActiveScenarioId] = useState('blizzard');
-  const [isSimulating, setIsSimulating] = useState(false);
+export default function Simulation({ currentStationId, stationData, crisisScenario, onTriggerCrisis, onResetCrisis }) {
+  const [activeScenarioId, setActiveScenarioId] = useState(crisisScenario ? crisisScenario.id : 'blizzard');
 
   const station = stationData || STATIONS[currentStationId] || STATIONS.maitri;
   const scenarios = SIMULATION_SCENARIOS;
   const currentScenario = scenarios[activeScenarioId] || scenarios.blizzard;
+  const isSimulating = Boolean(crisisScenario);
 
   const handleRunSimulation = () => {
-    setIsSimulating(true);
+    if (onTriggerCrisis) onTriggerCrisis(currentScenario);
   };
 
   const handleResetSimulation = () => {
-    setIsSimulating(false);
+    if (onResetCrisis) onResetCrisis();
   };
 
   // Simulated metrics calculation
