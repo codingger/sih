@@ -114,26 +114,30 @@ export default function StatCard({
         )}
       </div>
 
-      {/* Trend or Subtext */}
-      <div className="flex items-center justify-between mt-3 text-xs">
-        {trend && (
-          <div className="flex items-center gap-1 font-mono text-[11px]">
-            <span className={`flex items-center font-bold ${trendColor}`}>
-              <TrendIcon className="w-3 h-3 mr-0.5" />
-              {trend}
-            </span>
-            <span className="text-slate-400 text-[10px]">{trendLabel}</span>
-          </div>
-        )}
+      {/* Trend + Subtext */}
+      <div className="mt-3 text-xs space-y-1.5">
+        <div className="flex items-center justify-between">
+          {trend ? (
+            <div className="flex items-center gap-1 font-mono text-[11px]">
+              <span className={`flex items-center font-bold ${trendColor}`}>
+                <TrendIcon className="w-3 h-3 mr-0.5" />
+                {trend}
+              </span>
+              <span className="text-slate-400 text-[10px]">{trendLabel}</span>
+            </div>
+          ) : (
+            <span />
+          )}
 
-        {subtext && !trend && (
-          <span className="text-[11px] text-slate-400">{subtext}</span>
-        )}
+          {/* Small Status indicator pill */}
+          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold uppercase border ${statusGlowClasses[status]}`}>
+            {status}
+          </span>
+        </div>
 
-        {/* Small Status indicator pill */}
-        <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold uppercase border ${statusGlowClasses[status]}`}>
-          {status}
-        </span>
+        {subtext && (
+          <div className="text-[10px] text-slate-400 font-mono truncate">{subtext}</div>
+        )}
       </div>
     </div>
   );

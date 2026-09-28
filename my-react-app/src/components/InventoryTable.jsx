@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import EmptyState from './EmptyState';
 import { Search, AlertCircle, CheckCircle2, Filter } from 'lucide-react';
 
 export default function InventoryTable({ items = [] }) {
@@ -65,8 +66,17 @@ export default function InventoryTable({ items = [] }) {
           <tbody className="divide-y divide-slate-800/60 text-slate-200">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan="7" className="py-8 text-center text-slate-400">
-                  No inventory items match your filter criteria.
+                <td colSpan="7" className="p-0">
+                  <EmptyState
+                    title="No Items Found"
+                    message="No inventory or critical supplies match your current search and filter settings."
+                    icon="search"
+                    actionLabel="Reset Filters"
+                    onAction={() => {
+                      setSearch('');
+                      setSelectedCategory('ALL');
+                    }}
+                  />
                 </td>
               </tr>
             ) : (

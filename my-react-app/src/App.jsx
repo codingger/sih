@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import { PageLoader } from './components/LoadingSkeleton';
 import { useLiveData } from './hooks/useLiveData';
 import { ALERTS_LIST } from './data/mockData';
 
-// Pages
+// Eagerly loaded pages (entry points)
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Maitri from './pages/Maitri';
-import Bharati from './pages/Bharati';
-import Infrastructure from './pages/Infrastructure';
-import Energy from './pages/Energy';
-import Environment from './pages/Environment';
-import Equipment from './pages/Equipment';
-import Logistics from './pages/Logistics';
-import Inventory from './pages/Inventory';
-import Alerts from './pages/Alerts';
-import Maintenance from './pages/Maintenance';
-import Analytics from './pages/Analytics';
-import Simulation from './pages/Simulation';
-import Settings from './pages/Settings';
+
+// Lazy-loaded pages for code splitting
+const Maitri = lazy(() => import('./pages/Maitri'));
+const Bharati = lazy(() => import('./pages/Bharati'));
+const Infrastructure = lazy(() => import('./pages/Infrastructure'));
+const Energy = lazy(() => import('./pages/Energy'));
+const Environment = lazy(() => import('./pages/Environment'));
+const Equipment = lazy(() => import('./pages/Equipment'));
+const Logistics = lazy(() => import('./pages/Logistics'));
+const Inventory = lazy(() => import('./pages/Inventory'));
+const Alerts = lazy(() => import('./pages/Alerts'));
+const Maintenance = lazy(() => import('./pages/Maintenance'));
+const Analytics = lazy(() => import('./pages/Analytics'));
+const Simulation = lazy(() => import('./pages/Simulation'));
+const Settings = lazy(() => import('./pages/Settings'));
+
 
 function Layout({
   currentStationId,
@@ -36,13 +41,28 @@ function Layout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
   // If on login page, don't show the dashboard shell
   if (location.pathname === '/login') {
     return (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="login"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Routes location={location}>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
     );
   }
 
@@ -67,9 +87,19 @@ function Layout({
 
         <main className="flex-1 lg:pl-64 pt-4 pb-12 px-4 sm:px-6 polar-grid min-h-[calc(100vh-3.5rem)] overflow-x-hidden">
           <div className="max-w-7xl mx-auto">
-            <Routes>
-              <Route
-                path="/"
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname === '/' ? '/dashboard' : location.pathname}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                className="w-full page-transition-container"
+              >
+                <Suspense fallback={<PageLoader />}>
+                <Routes location={location}>
+                  <Route
+                    path="/"
                 element={
                   <Dashboard
                     currentStationId={currentStationId}
@@ -172,8 +202,11 @@ function Layout({
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
-          </div>
-        </main>
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </main>
       </div>
     </div>
   );

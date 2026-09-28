@@ -83,7 +83,7 @@ export default function Simulation({ currentStationId, stationData, crisisScenar
               key={sc.id}
               onClick={() => {
                 setActiveScenarioId(sc.id);
-                setIsSimulating(false);
+                if (crisisScenario) onResetCrisis();
               }}
               className={`text-left p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                 isSelected

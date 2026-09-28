@@ -115,3 +115,24 @@
 .glow-cyan-pulse {
   animation: cyan-glow 2.5s ease-in-out infinite;
 }
+
+/* Smooth hardware-accelerated drawer & navigation transitions */
+.drawer-transition {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.page-transition-container {
+  will-change: opacity, transform;
+}
+
+/* Accessibility: respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

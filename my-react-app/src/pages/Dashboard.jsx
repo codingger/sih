@@ -15,6 +15,7 @@ import {
   Maximize2
 } from 'lucide-react';
 import StatCard from '../components/StatCard';
+import { StaggerContainer, StaggerItem } from '../components/StaggerContainer';
 import AlertCard from '../components/AlertCard';
 import EnergyChart from '../components/EnergyChart';
 import EnvironmentChart from '../components/EnvironmentChart';
@@ -68,7 +69,8 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
       </div>
 
       {/* 4 Hero StatCards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StaggerItem>
         <StatCard
           title="Ambient Temp"
           value={station.telemetry.temperature}
@@ -82,7 +84,9 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
           sparklineData={[-36, -37, -38, -36, -33, -31, -30, -31, -32]}
           onClick={() => navigate('/environment')}
         />
+        </StaggerItem>
 
+        <StaggerItem>
         <StatCard
           title="Energy Storage (BESS)"
           value={station.telemetry.batterySOC}
@@ -96,7 +100,9 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
           sparklineData={[86, 85, 84, 83, 82, 82, 83, 84, 82]}
           onClick={() => navigate('/energy')}
         />
+        </StaggerItem>
 
+        <StaggerItem>
         <StatCard
           title="Fuel Reserves"
           value={station.telemetry.fuelLevel}
@@ -110,7 +116,9 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
           sparklineData={[67.4, 67.3, 67.2, 67.2, 67.1, 67.0, 67.0]}
           onClick={() => navigate('/inventory')}
         />
+        </StaggerItem>
 
+        <StaggerItem>
         <StatCard
           title="Station Health Index"
           value={station.healthScore}
@@ -124,7 +132,8 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
           sparklineData={isMaitri ? [98, 98, 97, 96, 95, 94] : [98, 98, 98, 99, 98]}
           onClick={() => navigate('/equipment')}
         />
-      </div>
+        </StaggerItem>
+      </StaggerContainer>
 
       {/* Middle Row: Digital Twin Interactive Panel + Active Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import EquipmentCard from '../components/EquipmentCard';
+import EmptyState from '../components/EmptyState';
+import { StaggerContainer, StaggerItem } from '../components/StaggerContainer';
 import { Wrench, Search, Filter, X, CheckCircle2, ShieldAlert } from 'lucide-react';
 import { EQUIPMENT_LIST, STATIONS } from '../data/mockData';
 
@@ -83,15 +85,29 @@ export default function Equipment({ currentStationId }) {
       </div>
 
       {/* Equipment Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredEquipment.map(eq => (
-          <EquipmentCard
-            key={eq.id}
-            equipment={eq}
-            onInspect={(item) => setInspectEquipment(item)}
-          />
-        ))}
-      </div>
+      {filteredEquipment.length === 0 ? (
+        <EmptyState
+          title="No Machinery Found"
+          message={`No equipment assets match your filter or search query for ${station.name}.`}
+          icon="search"
+          actionLabel="Clear Filters"
+          onAction={() => {
+            setSearch('');
+            setSelectedCategory('ALL');
+          }}
+        />
+      ) : (
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredEquipment.map(eq => (
+            <StaggerItem key={eq.id}>
+              <EquipmentCard
+                equipment={eq}
+                onInspect={(item) => setInspectEquipment(item)}
+              />
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      )}
 
       {/* Diagnostics Modal */}
       {inspectEquipment && (

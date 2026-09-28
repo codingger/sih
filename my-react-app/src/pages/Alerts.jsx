@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AlertCard from '../components/AlertCard';
+import EmptyState from '../components/EmptyState';
 import { AlertTriangle, AlertCircle, Info, CheckCircle2, Search, Filter } from 'lucide-react';
 import { ALERTS_LIST, STATIONS } from '../data/mockData';
 import { api } from '../services/api';
@@ -92,13 +93,16 @@ export default function Alerts({ currentStationId, alerts: globalAlerts, onAckno
       {/* Alerts Stream List */}
       <div className="space-y-3">
         {filteredAlerts.length === 0 ? (
-          <div className="glass-panel rounded-xl p-12 text-center border border-cyan-500/20">
-            <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-white">All Clear</h3>
-            <p className="text-xs text-slate-400 mt-1">
-              No active alerts matching your criteria for {station.name}.
-            </p>
-          </div>
+          <EmptyState
+            title="All Clear — No Active Alerts"
+            message={`No telemetry threshold deviations or active alarms match your criteria for ${station.name}. All systems operating nominally.`}
+            icon="inbox"
+            actionLabel={search || filterSeverity !== 'ALL' ? 'Reset Filters' : undefined}
+            onAction={() => {
+              setSearch('');
+              setFilterSeverity('ALL');
+            }}
+          />
         ) : (
           filteredAlerts.map(alert => (
             <AlertCard
