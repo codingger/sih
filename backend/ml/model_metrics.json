@@ -1,0 +1,26 @@
+{
+  "model_type": "RandomForestClassifier (scikit-learn)",
+  "dataset_type": "Simulated Equipment Telemetry (1,500 samples)",
+  "features_used": [
+    "temperature",
+    "vibration",
+    "runtime_hours",
+    "load_pct",
+    "days_since_service"
+  ],
+  "target": "Failure Risk Level (High Risk vs Normal)",
+  "metrics": {
+    "accuracy": 0.912,
+    "precision": 0.7885,
+    "recall": 0.6508,
+    "f1_score": 0.713
+  },
+  "feature_importances": {
+    "temperature": 0.3593,
+    "vibration": 0.3221,
+    "runtime_hours": 0.1198,
+    "load_pct": 0.0682,
+    "days_since_service": 0.1306
+  },
+  "trained_at": "2026-09-29"
+}
