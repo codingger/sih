@@ -6,8 +6,12 @@ import EnergyChart from '../components/EnergyChart';
 import { Thermometer, Zap, Fuel, Activity, Wind, Waves, Radio, ArrowRight, ShieldCheck } from 'lucide-react';
 import { STATIONS, HOURLY_TELEMETRY } from '../data/mockData';
 
-export default function Bharati({ stationData }) {
+export default function Bharati({ stationData, onSelectStation }) {
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (onSelectStation) onSelectStation('bharati');
+  }, [onSelectStation]);
   const station = (stationData && stationData.id === 'bharati') ? stationData : STATIONS.bharati;
 
   return (

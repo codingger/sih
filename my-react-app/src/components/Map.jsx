@@ -126,7 +126,7 @@ export default function Map({ currentStationId, onSelectStation }) {
             </span>
 
             {/* Label box */}
-            <div className={`absolute left-5 -top-3 w-44 p-2 rounded-lg text-xs font-mono glass-dropdown border transition-all ${
+            <div className={`absolute right-5 -top-3 w-44 p-2 rounded-lg text-xs font-mono glass-dropdown border transition-all ${
               currentStationId === 'bharati' ? 'border-emerald-400 bg-emerald-950/90' : 'border-slate-700 bg-slate-900/90'
             }`}>
               <div className="flex items-center justify-between">

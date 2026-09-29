@@ -12,7 +12,8 @@ import {
   Droplets,
   Layers,
   Sparkles,
-  Maximize2
+  Maximize2,
+  CheckCircle2
 } from 'lucide-react';
 import StatCard from '../components/StatCard';
 import { StaggerContainer, StaggerItem } from '../components/StaggerContainer';
@@ -29,6 +30,7 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
 
   // Alerts for active station
   const stationAlerts = alerts.filter(a => a.station === currentStationId);
+  const unackCritical = stationAlerts.filter(a => a.severity === 'critical' && !a.acknowledged).length;
 
   return (
     <div className="space-y-6">
@@ -403,15 +405,25 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
             </div>
 
             <div className="space-y-3">
-              {stationAlerts.slice(0, 3).map(alert => (
-                <AlertCard key={alert.id} alert={alert} onAcknowledge={onAcknowledgeAlert} />
-              ))}
+              {stationAlerts.length === 0 ? (
+                <div className="py-8 text-center">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2 opacity-80" />
+                  <p className="text-xs text-slate-200 font-semibold font-mono">ALL SYSTEMS NOMINAL</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">No critical or warning alerts active for {station.name}.</p>
+                </div>
+              ) : (
+                stationAlerts.slice(0, 3).map(alert => (
+                  <AlertCard key={alert.id} alert={alert} onAcknowledge={onAcknowledgeAlert} />
+                ))
+              )}
             </div>
           </div>
 
           <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
             <span>Automated Telemetry Sentry: ON</span>
-            <span className="text-emerald-400">0 Unacknowledged Critical</span>
+            <span className={unackCritical > 0 ? "text-rose-400 font-bold" : "text-emerald-400 font-bold"}>
+              {unackCritical} Unacknowledged Critical
+            </span>
           </div>
         </div>
       </div>

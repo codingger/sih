@@ -125,7 +125,7 @@ export default function Sidebar({ currentStationId, isOpen, onClose, alerts = AL
 
                       {/* Alert notification counters */}
                       {item.alertCount !== undefined && item.alertCount > 0 && (
-                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
                           item.criticalCount > 0
                             ? 'bg-rose-950/80 text-rose-300 border border-rose-500/50 pulse-critical'
                             : 'bg-amber-950/80 text-amber-300 border border-amber-500/50'

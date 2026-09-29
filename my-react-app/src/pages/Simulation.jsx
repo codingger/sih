@@ -32,22 +32,29 @@ export default function Simulation({ currentStationId, stationData, crisisScenar
     });
   };
 
-  // Simulated metrics calculation
-  const baseTemp = station.telemetry.temperature;
-  const simTemp = isSimulating ? baseTemp + (currentScenario.impacts.temperatureDelta || 0) : baseTemp;
+  // Baseline reference and simulated metrics calculation
+  const baselineStation = STATIONS[currentStationId || 'maitri'] || STATIONS.maitri;
+  const baseTemp = baselineStation.telemetry.temperature;
+  const simTemp = isSimulating
+    ? +(baseTemp + (currentScenario.impacts.temperatureDelta || 0)).toFixed(1)
+    : (station.telemetry.temperature ?? baseTemp);
 
-  const baseWind = station.telemetry.windSpeed;
-  const simWind = isSimulating ? baseWind + (currentScenario.impacts.windDelta || 0) : baseWind;
+  const baseWind = baselineStation.telemetry.windSpeed;
+  const simWind = isSimulating
+    ? Math.max(0, +(baseWind + (currentScenario.impacts.windDelta || 0)).toFixed(1))
+    : (station.telemetry.windSpeed ?? baseWind);
 
-  const baseHealth = station.healthScore;
-  const simHealth = isSimulating ? Math.max(20, baseHealth + currentScenario.impacts.healthScoreImpact) : baseHealth;
+  const baseHealth = baselineStation.healthScore;
+  const simHealth = isSimulating
+    ? Math.max(20, baseHealth + (currentScenario.impacts.healthScoreImpact || 0))
+    : (station.healthScore ?? baseHealth);
 
-  const basePower = station.telemetry.powerGeneration;
+  const basePower = baselineStation.telemetry.powerGeneration;
   const simPower = isSimulating
     ? currentScenario.id === 'generatorFailure'
       ? 125
-      : basePower + (currentScenario.impacts.powerDemandDeltaKw || 0)
-    : basePower;
+      : +(basePower + (currentScenario.impacts.powerDemandDeltaKw || 0)).toFixed(1)
+    : (station.telemetry.powerGeneration ?? basePower);
 
   return (
     <div className="space-y-6">

@@ -6,8 +6,12 @@ import EnergyChart from '../components/EnergyChart';
 import { Thermometer, Zap, Fuel, Activity, Waves, ArrowRight, AlertTriangle } from 'lucide-react';
 import { STATIONS, HOURLY_TELEMETRY } from '../data/mockData';
 
-export default function Maitri({ stationData }) {
+export default function Maitri({ stationData, onSelectStation }) {
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (onSelectStation) onSelectStation('maitri');
+  }, [onSelectStation]);
   const station = (stationData && stationData.id === 'maitri') ? stationData : STATIONS.maitri;
 
   return (

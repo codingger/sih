@@ -141,11 +141,11 @@ function Layout({
               />
               <Route
                 path="/maitri"
-                element={<Maitri stationData={stationData} />}
+                element={<Maitri stationData={stationData} onSelectStation={onSelectStation} />}
               />
               <Route
                 path="/bharati"
-                element={<Bharati stationData={stationData} />}
+                element={<Bharati stationData={stationData} onSelectStation={onSelectStation} />}
               />
               <Route
                 path="/infrastructure"
