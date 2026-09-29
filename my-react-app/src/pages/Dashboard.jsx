@@ -169,67 +169,125 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
               {/* Polar Grid Backdrop */}
               <div className="absolute inset-0 polar-grid opacity-30 pointer-events-none rounded-xl" />
 
-              {/* Station Blueprint Wireframe Graphic */}
-              <div className="relative z-10 w-full max-w-lg border border-cyan-500/30 rounded-xl p-3.5 sm:p-4 bg-slate-900/70 backdrop-blur-md group-hover:scale-[1.01] transition-transform shadow-lg shadow-black/40">
-                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-3">
-                  <div className="flex items-center gap-1.5 font-bold text-white text-xs tracking-wider font-mono">
-                    <span className="text-cyan-400">🏢</span>
-                    <span>{station.name.toUpperCase()} COMPLEX BLUEPRINT</span>
+            {/* Dual Station Blueprint Wireframe Grid */}
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3.5 relative z-10">
+              {/* Maitri Station Blueprint Box */}
+              <div
+                onClick={() => navigate('/maitri')}
+                className="border border-cyan-500/30 hover:border-cyan-400 rounded-xl p-3.5 bg-slate-900/80 backdrop-blur-md transition-all group-hover:scale-[1.01] shadow-lg shadow-black/40 text-left"
+              >
+                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-2.5">
+                  <div className="flex items-center gap-1.5 font-bold text-white text-[11px] tracking-wider font-mono">
+                    <span className="text-cyan-400">🏔️</span>
+                    <span>MAITRI STATION BLUEPRINT</span>
                   </div>
-                  <span className="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 font-semibold">
-                    SCADA ACTIVE
+                  <span className="text-[9px] font-mono text-cyan-400 px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 font-bold">
+                    IN-MAI
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 sm:gap-2.5 text-center text-[10px] font-mono">
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200 font-medium">{isMaitri ? 'Generator #01' : 'MAN Genset A'}</div>
-                    <div className="text-emerald-400 font-bold">{isMaitri ? '68% Load' : '58% Load'}</div>
+                <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-mono">
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Gen #01</div>
+                    <div className="text-emerald-400 font-bold">68% Load</div>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200 font-medium">Central Heating</div>
-                    <div className="text-emerald-400 font-bold">64°C Glycol</div>
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Heating</div>
+                    <div className="text-emerald-400 font-bold">64°C</div>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-amber-500/30 transition-colors">
-                    <span className="inline-block w-2 h-2 rounded-full bg-amber-400 mb-1" />
-                    <div className="text-slate-200 font-medium">{isMaitri ? 'Lake Water Line' : 'SWRO Desal'}</div>
-                    <div className="text-amber-400 font-bold">{isMaitri ? 'Trace Heat' : '2.8 m³/d'}</div>
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Lake Line</div>
+                    <div className="text-amber-400 font-bold">Trace</div>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200 font-medium">Battery BESS</div>
-                    <div className="text-cyan-400 font-bold">{station.telemetry.batterySOC}% SOC</div>
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">BESS</div>
+                    <div className="text-cyan-400 font-bold">82% SOC</div>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-rose-500/30 transition-colors">
-                    <span className={`inline-block w-2 h-2 rounded-full mb-1 ${isMaitri ? 'bg-rose-500 pulse-critical' : 'bg-emerald-400'}`} />
-                    <div className="text-slate-200 font-medium">{isMaitri ? 'Generator #02' : 'MAN Genset B'}</div>
-                    <div className={isMaitri ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}>
-                      {isMaitri ? '104°C CRIT' : 'Standby Ready'}
-                    </div>
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 border-rose-500/30">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-500 pulse-critical mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Gen #02</div>
+                    <div className="text-rose-400 font-bold">104°C CRIT</div>
                   </div>
 
-                  <div className="p-2 rounded-lg bg-slate-800/80 border border-slate-700/80 group-hover:border-cyan-500/30 transition-colors">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mb-1" />
-                    <div className="text-slate-200 font-medium">{isMaitri ? 'Polar Radome' : 'Wind Turbine'}</div>
-                    <div className="text-cyan-400 font-bold">{isMaitri ? '48 Mbps' : '38 kW WTG'}</div>
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">SATCOM</div>
+                    <div className="text-cyan-400 font-bold">48 Mbps</div>
                   </div>
                 </div>
               </div>
 
-              {/* Action Button Pill */}
-              <div className="relative z-10 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono group-hover:bg-cyan-900/60 group-hover:border-cyan-400 group-hover:text-white transition-all shadow-md shadow-cyan-950/50">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse shrink-0" />
-                <span>Click to inspect interactive 3D blueprint hotspots & diagnostics</span>
-                <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0" />
+              {/* Bharati Station Blueprint Box */}
+              <div
+                onClick={() => navigate('/bharati')}
+                className="border border-cyan-500/30 hover:border-cyan-400 rounded-xl p-3.5 bg-slate-900/80 backdrop-blur-md transition-all group-hover:scale-[1.01] shadow-lg shadow-black/40 text-left"
+              >
+                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-2.5">
+                  <div className="flex items-center gap-1.5 font-bold text-white text-[11px] tracking-wider font-mono">
+                    <span className="text-cyan-400">🌊</span>
+                    <span>BHARATI STATION BLUEPRINT</span>
+                  </div>
+                  <span className="text-[9px] font-mono text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/30 font-bold">
+                    IN-BHA
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-mono">
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">MAN Gen A</div>
+                    <div className="text-emerald-400 font-bold">58% Load</div>
+                  </div>
+
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">SWRO Desal</div>
+                    <div className="text-emerald-400 font-bold">2.8 m³/d</div>
+                  </div>
+
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Wind WTG</div>
+                    <div className="text-cyan-400 font-bold">38 kW</div>
+                  </div>
+
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">Solar PV</div>
+                    <div className="text-cyan-400 font-bold">68 kW</div>
+                  </div>
+
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">MAN Gen B</div>
+                    <div className="text-emerald-400 font-bold">Standby</div>
+                  </div>
+
+                  <div className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 mb-0.5" />
+                    <div className="text-slate-200 font-medium truncate">ISRO Dish</div>
+                    <div className="text-cyan-400 font-bold">120 Mbps</div>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Action Button Pill */}
+            <div className="relative z-10 flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono hover:bg-cyan-900/60 hover:border-cyan-400 hover:text-white transition-all shadow-md shadow-cyan-950/50 mt-3 cursor-pointer" onClick={() => navigate(isMaitri ? '/maitri' : '/bharati')}>
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse shrink-0" />
+              <span>Click any station blueprint to inspect interactive 3D hotspots & SCADA diagnostics</span>
+              <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0" />
+            </div>
           </div>
+        </div>
 
           {/* Live Readout Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-4 pt-3.5 border-t border-cyan-500/20 text-center font-mono">
