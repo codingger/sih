@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cyan-50: #f8fafc;
-  --color-cyan-100: #f1f5f9;
-  --color-cyan-200: #e2e8f0;
-  --color-cyan-300: #cbd5e1;
-  --color-cyan-400: #f1f5f9; /* Glacial Frost White */
-  --color-cyan-500: #94a3b8; /* Frosted Polar Steel */
-  --color-cyan-600: #64748b;
-  --color-cyan-700: #475569;
-  --color-cyan-800: #334155;
-  --color-cyan-900: #1a1e27;
-  --color-cyan-950: #101319;
+  --color-cyan-50: #f0f9ff;
+  --color-cyan-100: #e0f2fe;
+  --color-cyan-200: #bae6fd;
+  --color-cyan-300: #7dd3fc;
+  --color-cyan-400: #38bdf8; /* Polar Glacial Ice Blue */
+  --color-cyan-500: #0ea5e9; /* Arctic Ocean Blue */
+  --color-cyan-600: #0284c7;
+  --color-cyan-700: #0369a1;
+  --color-cyan-800: #075985;
+  --color-cyan-900: #0c4a6e;
+  --color-cyan-950: #082f49;
 
-  --color-slate-950: #090b0f; /* Antarctic Polar Bedrock */
-  --color-slate-900: #11141b; /* Console Base */
-  --color-slate-800: #181d26; /* Panel Surface */
-  --color-slate-700: #252c3a; /* Hairline Border */
+  --color-slate-950: #051326; /* Deep Arctic Polar Ocean */
+  --color-slate-900: #0a1f3d; /* Glacial Trench */
+  --color-slate-800: #0f2d56; /* Ice Shelf Surface */
+  --color-slate-700: #1a4275; /* Sub-Zero Crevasse Border */
 }
 
 @layer base {
   :root {
-    --bg-primary: #090b0f;
-    --bg-card: rgba(17, 20, 27, 0.85);
-    --border-cyan: rgba(226, 232, 240, 0.15);
-    --cyan-glow: rgba(226, 232, 240, 0.25);
+    --bg-primary: #051326;
+    --bg-card: rgba(10, 31, 61, 0.78);
+    --border-cyan: rgba(56, 189, 248, 0.25);
+    --cyan-glow: rgba(56, 189, 248, 0.35);
     --status-normal: #10b981;
     --status-warning: #f59e0b;
     --status-critical: #ef4444;
@@ -33,8 +33,8 @@
   body {
     margin: 0;
     padding: 0;
-    background-color: #090b0f;
-    color: #e2e8f0;
+    background-color: #051326;
+    color: #f0f9ff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
@@ -50,36 +50,38 @@
   }
 }
 
-/* Custom Antarctic polar glassmorphism (Basalt & Ice Glass) */
+/* Custom Antarctic polar glassmorphism (Glacial Ice & Frosted Shelves) */
 .glass-panel {
-  background: rgba(16, 20, 27, 0.82);
+  background: rgba(10, 31, 61, 0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  box-shadow: 0 8px 32px 0 rgba(2, 10, 24, 0.55);
 }
 
 .glass-panel-glow {
-  background: rgba(20, 25, 34, 0.9);
+  background: rgba(13, 38, 74, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.18);
-  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  box-shadow: 0 0 25px -4px rgba(14, 165, 233, 0.25), 0 8px 32px 0 rgba(2, 10, 24, 0.6);
 }
 
 .glass-dropdown {
-  background: rgba(12, 15, 21, 0.98);
+  background: rgba(7, 24, 48, 0.98);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.8);
 }
 
-/* Subtle Polar Grid Background (Authentic Latitude Grid, No Neon Glow) */
+/* Polar Atmospheric Grid (Frozen Ice Light & Coordinates) */
 .polar-grid {
+  background-color: #051326;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
+    radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.22) 0%, transparent 65%),
+    linear-gradient(to right, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
 }
 
 /* Custom scrollbars */
@@ -89,16 +91,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(9, 11, 15, 0.9);
+  background: rgba(5, 19, 38, 0.9);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(56, 189, 248, 0.35);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.32);
+  background: rgba(56, 189, 248, 0.65);
 }
 
 /* Pulsing radar effects */

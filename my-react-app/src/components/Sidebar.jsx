@@ -87,7 +87,7 @@ export default function Sidebar({ currentStationId, isOpen, onClose, alerts = AL
         <div className="flex-1 overflow-y-auto py-4 px-3 space-y-6">
           {navSections.map((section, idx) => (
             <div key={idx} className="space-y-1">
-              <div className="px-3 text-[10px] font-mono font-bold tracking-wider text-slate-400 uppercase">
+              <div className="px-3 text-[10px] font-mono font-bold tracking-wider text-cyan-300/80 uppercase">
                 {section.title}
               </div>
 
@@ -103,22 +103,22 @@ export default function Sidebar({ currentStationId, isOpen, onClose, alerts = AL
                       onClick={onClose}
                       className={`relative flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer ${
                         isActive
-                          ? 'bg-slate-800 text-white border border-slate-700 shadow-sm'
-                          : 'text-slate-400 hover:text-white hover:bg-slate-800/40 border border-transparent'
+                          ? 'bg-cyan-500/20 text-white border border-cyan-400/40 shadow-sm shadow-cyan-500/10'
+                          : 'text-slate-300 hover:text-white hover:bg-cyan-950/40 border border-transparent'
                       }`}
                     >
                       {isActive && (
-                        <span className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full bg-slate-200" />
+                        <span className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full bg-cyan-400 shadow-sm shadow-cyan-400" />
                       )}
 
                       <div className="flex items-center gap-2.5">
-                        <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-300' : 'text-slate-400'}`} />
                         <span>{item.label}</span>
                       </div>
 
                       {/* Badges */}
                       {item.badge && (
-                        <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-slate-900 border border-slate-700 text-slate-300">
+                        <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-cyan-950/80 border border-cyan-400/40 text-cyan-200">
                           {item.badge}
                         </span>
                       )}

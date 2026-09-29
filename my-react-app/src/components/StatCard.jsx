@@ -15,15 +15,15 @@ export default function StatCard({
   onClick
 }) {
   const statusBorderClasses = {
-    normal: 'border-slate-700/60 hover:border-slate-500 shadow-black/20',
-    warning: 'border-amber-500/30 hover:border-amber-400/60 shadow-amber-950/20',
+    normal: 'border-cyan-500/25 hover:border-cyan-400/50 shadow-cyan-950/30',
+    warning: 'border-amber-500/35 hover:border-amber-400/60 shadow-amber-950/20',
     critical: 'border-rose-500/40 hover:border-rose-400/70 shadow-rose-950/30'
   };
 
   const statusGlowClasses = {
-    normal: 'text-emerald-400 bg-emerald-950/50 border-emerald-500/30',
-    warning: 'text-amber-400 bg-amber-950/50 border-amber-500/30',
-    critical: 'text-rose-400 bg-rose-950/50 border-rose-500/30 pulse-critical'
+    normal: 'text-emerald-400 bg-emerald-950/60 border-emerald-500/40',
+    warning: 'text-amber-300 bg-amber-950/60 border-amber-500/40',
+    critical: 'text-rose-300 bg-rose-950/60 border-rose-500/40 pulse-critical'
   };
 
   const trendColor = {
@@ -42,15 +42,15 @@ export default function StatCard({
       } ${onClick ? 'cursor-pointer' : ''}`}
     >
       {/* Top subtle light reflection */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
 
       {/* Header with Title and Icon */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[11px] font-mono tracking-wider text-slate-400 uppercase font-semibold">
+        <span className="text-[11px] font-mono tracking-wider text-cyan-300 uppercase font-semibold">
           {title}
         </span>
         {Icon && (
-          <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 group-hover:text-white group-hover:scale-105 transition-all">
+          <div className="p-2 rounded-lg bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 group-hover:text-white group-hover:scale-105 transition-all">
             <Icon className="w-4 h-4" />
           </div>
         )}
@@ -63,7 +63,7 @@ export default function StatCard({
             {value}
           </span>
           {unit && (
-            <span className="text-sm font-semibold text-slate-400 font-mono">
+            <span className="text-sm font-semibold text-cyan-200/80 font-mono">
               {unit}
             </span>
           )}
@@ -74,8 +74,8 @@ export default function StatCard({
             <svg viewBox="0 0 60 30" className="w-full h-full overflow-visible">
               <defs>
                 <linearGradient id={`grad-${title.replace(/\s+/g, '')}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#94a3b8'} stopOpacity="0.4" />
-                  <stop offset="100%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#94a3b8'} stopOpacity="0.0" />
+                  <stop offset="0%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#38bdf8'} stopOpacity="0.4" />
+                  <stop offset="100%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#38bdf8'} stopOpacity="0.0" />
                 </linearGradient>
               </defs>
               {(() => {
@@ -100,7 +100,7 @@ export default function StatCard({
                     />
                     <polyline
                       fill="none"
-                      stroke={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#cbd5e1'}
+                      stroke={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#38bdf8'}
                       strokeWidth="1.75"
                       strokeLinecap="round"
                       strokeLinejoin="round"
