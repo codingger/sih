@@ -23,23 +23,23 @@ export default function Navbar({ currentStationId, onSelectStation, onToggleSide
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-1.5 rounded-lg bg-slate-800/80 border border-cyan-500/30 text-cyan-300 hover:text-white cursor-pointer"
+          className="lg:hidden p-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-200 hover:text-white cursor-pointer"
           aria-label="Toggle Navigation Menu"
         >
           {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
 
         <div className="flex items-center gap-2.5">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-950/80 border border-cyan-400/40 shadow-inner shadow-cyan-500/30">
-            <Snowflake className="w-5 h-5 text-cyan-400 animate-pulse" />
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 shadow-sm">
+            <Snowflake className="w-5 h-5 text-slate-200" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold tracking-wider text-white text-sm sm:text-base">
                 NCPOR
               </span>
-              <span className="text-cyan-500 font-light">|</span>
-              <span className="text-cyan-300 font-semibold tracking-wide text-xs sm:text-sm uppercase">
+              <span className="text-slate-500 font-light">|</span>
+              <span className="text-slate-200 font-semibold tracking-wide text-xs sm:text-sm uppercase">
                 Antarctic Digital Twin
               </span>
             </div>
@@ -68,7 +68,7 @@ export default function Navbar({ currentStationId, onSelectStation, onToggleSide
         )}
 
         {/* System Online Status Pill */}
-        <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+        <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-mono">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -77,8 +77,8 @@ export default function Navbar({ currentStationId, onSelectStation, onToggleSide
         </div>
 
         {/* SATCOM Pill */}
-        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/20 text-cyan-300 text-xs font-mono">
-          <Wifi className="w-3 h-3 text-cyan-400" />
+        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700/60 text-slate-300 text-xs font-mono">
+          <Wifi className="w-3 h-3 text-slate-400" />
           <span className="text-[11px]">SAT-LINK: 480ms</span>
         </div>
 

@@ -84,7 +84,7 @@ export default function Simulation({ currentStationId, stationData, crisisScenar
           ) : (
             <button
               onClick={handleRunSimulation}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-mono font-bold shadow-lg shadow-cyan-500/20 cursor-pointer transition-all"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 hover:bg-white text-slate-950 text-xs font-mono font-bold shadow-md cursor-pointer transition-all"
             >
               <Play className="w-3.5 h-3.5" />
               <span>Engage Crisis Simulation</span>

@@ -20,11 +20,11 @@ export default function AlertCard({ alert, onAcknowledge }) {
       actionBg: 'bg-amber-950/40 border-amber-500/30 text-amber-200'
     },
     info: {
-      cardBg: 'bg-cyan-950/10 border-cyan-500/20 border-l-4 border-l-cyan-500',
-      badge: 'bg-cyan-950/80 text-cyan-300 border-cyan-500/40',
+      cardBg: 'bg-slate-900/60 border-slate-700/60 border-l-4 border-l-slate-400',
+      badge: 'bg-slate-800 text-slate-200 border-slate-600',
       icon: Info,
-      iconColor: 'text-cyan-400',
-      actionBg: 'bg-cyan-950/40 border-cyan-500/20 text-cyan-200'
+      iconColor: 'text-slate-300',
+      actionBg: 'bg-slate-800/60 border-slate-700 text-slate-200'
     }
   };
 
@@ -32,7 +32,7 @@ export default function AlertCard({ alert, onAcknowledge }) {
   const Icon = config.icon;
 
   return (
-    <div className={`rounded-xl p-3.5 sm:p-4 border glass-panel transition-all duration-200 hover:border-cyan-400/40 shadow-sm ${config.cardBg}`}>
+    <div className={`rounded-xl p-3.5 sm:p-4 border glass-panel transition-all duration-200 hover:border-slate-500/40 shadow-sm ${config.cardBg}`}>
       <div className="flex items-start justify-between gap-3">
         {/* Left Side: Icon & Details */}
         <div className="flex items-start gap-3 min-w-0 flex-1">
@@ -46,7 +46,7 @@ export default function AlertCard({ alert, onAcknowledge }) {
               <span className={`text-[9px] sm:text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded-full border ${config.badge}`}>
                 {severity}
               </span>
-              <span className="text-[11px] font-mono font-medium text-cyan-400 truncate">
+              <span className="text-[11px] font-mono font-medium text-slate-300 truncate">
                 {subsystem}
               </span>
               <span className="text-[10px] text-slate-400 font-mono">
@@ -67,8 +67,8 @@ export default function AlertCard({ alert, onAcknowledge }) {
             {/* Recommended Action Strip */}
             {recommendedAction && (
               <div className={`mt-2 p-1.5 px-2.5 rounded-md border text-[10px] sm:text-[11px] font-mono flex items-center gap-1.5 ${config.actionBg}`}>
-                <Wrench className="w-3 h-3 text-cyan-400 shrink-0" />
-                <span className="font-bold uppercase text-cyan-300 shrink-0">Action:</span>
+                <Wrench className="w-3 h-3 text-slate-400 shrink-0" />
+                <span className="font-bold uppercase text-slate-200 shrink-0">Action:</span>
                 <span className="truncate">{recommendedAction}</span>
               </div>
             )}
@@ -85,7 +85,7 @@ export default function AlertCard({ alert, onAcknowledge }) {
           ) : (
             <button
               onClick={() => onAcknowledge && onAcknowledge(id)}
-              className="text-[10px] sm:text-[11px] font-mono font-bold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-cyan-400 hover:text-slate-950 border border-cyan-500/40 text-cyan-300 transition-all cursor-pointer shadow-sm"
+              className="text-[10px] sm:text-[11px] font-mono font-bold px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-100 hover:text-slate-950 border border-slate-700 text-slate-200 transition-all cursor-pointer shadow-sm"
             >
               Acknowledge
             </button>

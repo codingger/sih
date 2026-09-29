@@ -62,7 +62,7 @@ export default function Dashboard({ currentStationId, stationData, onSelectStati
 
           <button
             onClick={() => navigate(isMaitri ? '/maitri' : '/bharati')}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs tracking-wide shadow-lg shadow-cyan-500/20 cursor-pointer transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs tracking-wide shadow-md hover:shadow-lg cursor-pointer transition-all"
           >
             <span>LAUNCH DIGITAL TWIN</span>
             <ArrowRight className="w-3.5 h-3.5" />

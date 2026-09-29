@@ -30,8 +30,8 @@ export default function Map({ currentStationId, onSelectStation }) {
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
           <defs>
             <radialGradient id="polarGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#00f0ff" stopOpacity="0.08" />
-              <stop offset="60%" stopColor="#00f0ff" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.03" />
+              <stop offset="60%" stopColor="#ffffff" stopOpacity="0.01" />
               <stop offset="100%" stopColor="transparent" stopOpacity="0" />
             </radialGradient>
           </defs>
@@ -53,16 +53,16 @@ export default function Map({ currentStationId, onSelectStation }) {
           <path
             d="M 210,130 Q 240,90 300,90 Q 380,95 420,150 Q 460,220 420,290 Q 360,330 280,320 Q 200,310 160,250 Q 140,190 210,130 Z"
             fill="rgba(15, 23, 42, 0.6)"
-            stroke="#0284c7"
+            stroke="#475569"
             strokeWidth="1.5"
-            strokeOpacity="0.4"
+            strokeOpacity="0.5"
           />
 
           {/* Ice Shelf Details */}
           <path
             d="M 230,120 Q 280,105 330,110 Q 390,140 405,180"
             fill="none"
-            stroke="#38bdf8"
+            stroke="#94a3b8"
             strokeWidth="1"
             strokeOpacity="0.6"
           />
@@ -93,20 +93,20 @@ export default function Map({ currentStationId, onSelectStation }) {
         >
           <div className="relative">
             <span className="relative flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500 border-2 border-white shadow-lg shadow-cyan-500/50"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-amber-500 border-2 border-white shadow-lg shadow-amber-500/50"></span>
             </span>
 
             {/* Label box */}
             <div className={`absolute left-5 -top-3 w-44 p-2 rounded-lg text-xs font-mono glass-dropdown border transition-all ${
-              currentStationId === 'maitri' ? 'border-cyan-400 bg-cyan-950/90' : 'border-slate-700 bg-slate-900/90'
+              currentStationId === 'maitri' ? 'border-amber-400/80 bg-slate-900/95' : 'border-slate-700 bg-slate-900/90'
             }`}>
               <div className="flex items-center justify-between">
                 <span className="font-bold text-white">MAITRI BASE</span>
-                <span className="text-[10px] text-cyan-400">{maitri.telemetry.temperature}°C</span>
+                <span className="text-[10px] text-slate-300">{maitri.telemetry.temperature}°C</span>
               </div>
               <div className="text-[10px] text-slate-300">Queen Maud Land</div>
-              <div className="text-[9px] text-amber-400 mt-0.5">Alert: Gen #02 Vibe</div>
+              <div className="text-[9px] text-amber-400 mt-0.5 font-bold">Alert: Gen #02 Vibe</div>
             </div>
           </div>
         </div>
@@ -127,14 +127,14 @@ export default function Map({ currentStationId, onSelectStation }) {
 
             {/* Label box */}
             <div className={`absolute right-5 -top-3 w-44 p-2 rounded-lg text-xs font-mono glass-dropdown border transition-all ${
-              currentStationId === 'bharati' ? 'border-emerald-400 bg-emerald-950/90' : 'border-slate-700 bg-slate-900/90'
+              currentStationId === 'bharati' ? 'border-emerald-400/80 bg-slate-900/95' : 'border-slate-700 bg-slate-900/90'
             }`}>
               <div className="flex items-center justify-between">
                 <span className="font-bold text-white">BHARATI BASE</span>
-                <span className="text-[10px] text-emerald-400">{bharati.telemetry.temperature}°C</span>
+                <span className="text-[10px] text-emerald-400 font-bold">{bharati.telemetry.temperature}°C</span>
               </div>
               <div className="text-[10px] text-slate-300">Larsemann Hills</div>
-              <div className="text-[9px] text-emerald-400 mt-0.5">Status: All Optimal</div>
+              <div className="text-[9px] text-emerald-400 mt-0.5 font-bold">Status: All Optimal</div>
             </div>
           </div>
         </div>

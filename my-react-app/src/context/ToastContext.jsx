@@ -100,7 +100,7 @@ export function ToastProvider({ children }) {
                       ? 'bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500'
                       : isSuccess
                       ? 'bg-gradient-to-r from-emerald-500 via-emerald-300 to-emerald-500'
-                      : 'bg-gradient-to-r from-cyan-500 via-cyan-300 to-cyan-500'
+                      : 'bg-slate-300'
                   }`}
                 />
 

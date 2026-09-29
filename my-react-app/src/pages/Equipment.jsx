@@ -202,7 +202,7 @@ export default function Equipment({ currentStationId }) {
                     });
                     setInspectEquipment(null);
                   }}
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-mono font-bold cursor-pointer transition-all shadow-md shadow-cyan-500/20"
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-white text-slate-950 text-xs font-mono font-bold cursor-pointer transition-all shadow-md"
                 >
                   Export SCADA Telemetry
                 </button>

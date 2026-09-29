@@ -157,7 +157,7 @@ export default function Maintenance({ currentStationId }) {
                   ) : (
                     <button
                       onClick={() => handleScheduleService(item)}
-                      className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs cursor-pointer shadow-md shadow-cyan-500/20 transition-all flex items-center justify-center gap-1.5"
+                      className="w-full py-2 px-3 rounded-lg bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs cursor-pointer shadow-md transition-all flex items-center justify-center gap-1.5"
                     >
                       <Calendar className="w-3.5 h-3.5" />
                       <span>Schedule Work Order</span>

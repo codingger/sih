@@ -15,7 +15,7 @@ export default function StatCard({
   onClick
 }) {
   const statusBorderClasses = {
-    normal: 'border-cyan-500/20 hover:border-cyan-400/50 shadow-cyan-950/20',
+    normal: 'border-slate-700/60 hover:border-slate-500 shadow-black/20',
     warning: 'border-amber-500/30 hover:border-amber-400/60 shadow-amber-950/20',
     critical: 'border-rose-500/40 hover:border-rose-400/70 shadow-rose-950/30'
   };
@@ -42,15 +42,15 @@ export default function StatCard({
       } ${onClick ? 'cursor-pointer' : ''}`}
     >
       {/* Top subtle light reflection */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       {/* Header with Title and Icon */}
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[11px] font-mono tracking-wider text-cyan-300/80 uppercase font-semibold">
+        <span className="text-[11px] font-mono tracking-wider text-slate-400 uppercase font-semibold">
           {title}
         </span>
         {Icon && (
-          <div className="p-2 rounded-lg bg-slate-800/80 border border-cyan-500/20 text-cyan-400 group-hover:text-cyan-300 group-hover:scale-105 transition-all">
+          <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 group-hover:text-white group-hover:scale-105 transition-all">
             <Icon className="w-4 h-4" />
           </div>
         )}
@@ -74,8 +74,8 @@ export default function StatCard({
             <svg viewBox="0 0 60 30" className="w-full h-full overflow-visible">
               <defs>
                 <linearGradient id={`grad-${title.replace(/\s+/g, '')}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#00f0ff'} stopOpacity="0.4" />
-                  <stop offset="100%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#00f0ff'} stopOpacity="0.0" />
+                  <stop offset="0%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#94a3b8'} stopOpacity="0.4" />
+                  <stop offset="100%" stopColor={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#94a3b8'} stopOpacity="0.0" />
                 </linearGradient>
               </defs>
               {(() => {
@@ -100,7 +100,7 @@ export default function StatCard({
                     />
                     <polyline
                       fill="none"
-                      stroke={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#00f0ff'}
+                      stroke={status === 'critical' ? '#ef4444' : status === 'warning' ? '#f59e0b' : '#cbd5e1'}
                       strokeWidth="1.75"
                       strokeLinecap="round"
                       strokeLinejoin="round"

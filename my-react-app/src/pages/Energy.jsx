@@ -200,7 +200,7 @@ export default function Energy({ currentStationId, stationData }) {
             ) : (
               <button
                 onClick={handleApplyOptimization}
-                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs font-mono cursor-pointer transition-all shadow-md shadow-cyan-500/20"
+                className="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs font-mono cursor-pointer transition-all shadow-md"
               >
                 Apply Microgrid Optimization
               </button>

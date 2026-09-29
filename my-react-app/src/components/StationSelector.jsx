@@ -32,7 +32,7 @@ export default function StationSelector({ currentStationId, onSelectStation }) {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-400 text-slate-200 transition-all duration-200 text-xs sm:text-sm font-medium shadow-sm hover:shadow-cyan-500/10 cursor-pointer"
+        className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 hover:border-slate-500 text-slate-200 transition-all duration-200 text-xs sm:text-sm font-medium shadow-sm cursor-pointer"
         title="Select Active Polar Station"
       >
         <div className="flex items-center gap-2">
@@ -47,16 +47,16 @@ export default function StationSelector({ currentStationId, onSelectStation }) {
             }`}></span>
           </span>
           <span className="font-semibold tracking-wide text-white">{currentStation.name}</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 font-mono hidden md:inline">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono hidden md:inline">
             {currentStation.code}
           </span>
         </div>
-        <ChevronDown className={`w-3.5 h-3.5 text-cyan-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 rounded-xl glass-dropdown border border-cyan-500/30 p-2 z-50 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="px-2 py-1 text-[10px] uppercase tracking-wider text-cyan-400 font-mono font-semibold">
+        <div className="absolute right-0 mt-2 w-72 rounded-xl glass-dropdown border border-slate-700 p-2 z-50 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="px-2 py-1 text-[10px] uppercase tracking-wider text-slate-400 font-mono font-semibold">
             Active Indian Research Bases
           </div>
 
@@ -69,7 +69,7 @@ export default function StationSelector({ currentStationId, onSelectStation }) {
                   onClick={() => handleSelect(st.id)}
                   className={`w-full text-left p-2.5 rounded-lg transition-all flex flex-col gap-1 cursor-pointer ${
                     isSelected
-                      ? 'bg-cyan-950/70 border border-cyan-500/50 shadow-sm'
+                      ? 'bg-slate-800/90 border border-slate-600 shadow-sm'
                       : 'hover:bg-slate-800/60 border border-transparent'
                   }`}
                 >

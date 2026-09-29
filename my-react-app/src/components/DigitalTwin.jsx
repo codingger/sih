@@ -155,9 +155,9 @@ export default function DigitalTwin({ stationData, stationId = 'maitri' }) {
       <div className="relative w-full h-[540px] sm:h-[600px] rounded-2xl bg-slate-950 border border-cyan-500/30 overflow-hidden shadow-2xl">
         {/* Subtle Animated Aurora / Polar Night Background */}
         {auroraActive && (
-          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-            <div className="absolute -top-20 -left-20 w-[600px] h-[300px] bg-gradient-to-r from-emerald-500/20 via-cyan-500/30 to-blue-500/10 blur-3xl rounded-full transform -rotate-12 animate-pulse" />
-            <div className="absolute top-1/4 right-0 w-[500px] h-[250px] bg-gradient-to-l from-cyan-400/20 via-teal-500/20 to-transparent blur-3xl rounded-full transform rotate-6" />
+          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+            <div className="absolute -top-20 -left-20 w-[600px] h-[300px] bg-gradient-to-r from-emerald-500/15 via-emerald-400/10 to-transparent blur-3xl rounded-full transform -rotate-12 animate-pulse" />
+            <div className="absolute top-1/4 right-0 w-[500px] h-[250px] bg-gradient-to-l from-slate-700/15 to-transparent blur-3xl rounded-full transform rotate-6" />
           </div>
         )}
 
@@ -1161,7 +1161,7 @@ export default function DigitalTwin({ stationData, stationId = 'maitri' }) {
                   ) : (
                     <button
                       onClick={handleExecuteRemediation}
-                      className="w-full mt-2 py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs font-mono tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-cyan-500/20 transition-all"
+                      className="w-full mt-2 py-2 px-3 rounded-lg bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs font-mono tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all"
                     >
                       <span>EXECUTE REMEDIATION PROTOCOL</span>
                       <ArrowRight className="w-3.5 h-3.5" />

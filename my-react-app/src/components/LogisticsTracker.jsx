@@ -126,7 +126,7 @@ export default function LogisticsTracker() {
               </div>
               <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
                 <div
-                  className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full"
+                  className="bg-slate-300 h-full rounded-full"
                   style={{ width: `${c.percent}%` }}
                 />
               </div>
