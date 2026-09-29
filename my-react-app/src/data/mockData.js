@@ -586,64 +586,64 @@ export const ALERTS_LIST = [
     id: 'ALT-1092',
     station: 'maitri',
     severity: 'critical',
-    title: 'Generator #02 High Bearing Temperature Spike',
+    title: 'Generator #02 High Bearing Thermal Spike',
     subsystem: 'Power Generation',
-    timestamp: '18 minutes ago',
+    timestamp: '18m ago',
     date: '2026-09-28 19:50 UTC',
-    message: 'Bearing #2 reached 104°C (Limit: 95°C) with harmonic vibration at 4.8 mm/s. Thermal runaway risk during high auxiliary draw.',
+    message: 'Bearing #2 reached 104°C (Limit: 95°C) with 4.8 mm/s vibration. Risk of thermal runaway.',
     acknowledged: false,
-    recommendedAction: 'Throttle Gen #02 to idle immediately. Transfer living quarter loads to Battery BESS.'
+    recommendedAction: 'Throttle Gen #02 to idle. Shift load to Battery BESS.'
   },
   {
     id: 'ALT-1090',
     station: 'maitri',
     severity: 'warning',
-    title: 'Lake Priyadarshini Freeze-Trace Current Surge',
-    subsystem: 'Water Infrastructure',
-    timestamp: '1 hour ago',
+    title: 'Lake Intake Freeze-Trace Current Surge',
+    subsystem: 'Water Supply',
+    timestamp: '1h ago',
     date: '2026-09-28 18:45 UTC',
-    message: 'Trace heating element at Lake Intake Bend 4 drew 38A continuous (Normal: 24A) due to -48°C wind chill spike.',
+    message: 'Intake Bend 4 trace element drawing 38A (Normal 24A) due to -48°C wind chill.',
     acknowledged: false,
-    recommendedAction: 'Verify thermal continuity and inspect outer insulation shroud on next outdoor patrol.'
+    recommendedAction: 'Inspect outer thermal insulation shroud on next patrol.'
   },
   {
     id: 'ALT-1088',
     station: 'maitri',
     severity: 'warning',
-    title: 'Fuel Consumption Rate +14% Over Normal Seasonal Model',
-    subsystem: 'Logistics / Fuel',
-    timestamp: '3 hours ago',
+    title: 'Fuel Burn Rate +14% Over Seasonal Baseline',
+    subsystem: 'Fuel Systems',
+    timestamp: '3h ago',
     date: '2026-09-28 16:30 UTC',
-    message: 'Secondary genset running suboptimal efficiency curve due to elevated bearing friction.',
+    message: 'Secondary genset running off-efficiency curve due to bearing friction.',
     acknowledged: true,
-    acknowledgedBy: 'Col. S. Sharma (Station Commander)',
-    recommendedAction: 'Re-tune governor throttle and equalize BESS charging windows.'
+    acknowledgedBy: 'Col. S. Sharma (Commander)',
+    recommendedAction: 'Re-tune governor throttle and equalize BESS charging.'
   },
   {
     id: 'ALT-1084',
     station: 'bharati',
     severity: 'info',
-    title: 'ISRO Cartosat-3 High-Speed Downlink Pass Complete',
-    subsystem: 'Communications',
-    timestamp: '4 hours ago',
+    title: 'ISRO Cartosat-3 Downlink Pass Complete',
+    subsystem: 'SATCOM',
+    timestamp: '4h ago',
     date: '2026-09-28 15:15 UTC',
-    message: 'Successfully acquired 42.4 GB of earth observation imagery via S/X dual-band tracking dish.',
+    message: 'Acquired 42.4 GB satellite imagery via tracking dish with zero packet loss.',
     acknowledged: true,
     acknowledgedBy: 'Dr. A. Verma (Lead Scientist)',
-    recommendedAction: 'Data archived to local SAN storage and queued for Cape Town fiber mirror.'
+    recommendedAction: 'Data archived to local SAN storage.'
   },
   {
     id: 'ALT-1079',
     station: 'bharati',
     severity: 'info',
-    title: 'Wind Turbine #1 De-Icing Cycle Triggered Automatically',
+    title: 'Wind Turbine #1 De-Icing Cycle Active',
     subsystem: 'Renewable Power',
-    timestamp: '7 hours ago',
+    timestamp: '7h ago',
     date: '2026-09-28 12:20 UTC',
-    message: 'Surface ice accretion sensor detected 4mm riming on leading edge. 15-minute electro-thermal cycle cleared blades.',
+    message: '15-minute electro-thermal cycle cleared 4mm riming from rotor blades.',
     acknowledged: true,
-    acknowledgedBy: 'Automated Microgrid Controller',
-    recommendedAction: 'No manual intervention required. Power efficiency restored to 95%.'
+    acknowledgedBy: 'Microgrid Controller',
+    recommendedAction: 'Rotor efficiency restored to 95%.'
   }
 ];
 
