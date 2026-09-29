@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import DigitalTwin from '../components/DigitalTwin';
 import StatCard from '../components/StatCard';
 import EnergyChart from '../components/EnergyChart';
-import { Thermometer, Zap, Fuel, Activity, Wind, Waves } from 'lucide-react';
+import { Thermometer, Zap, Fuel, Activity, Wind, Waves, Radio, ArrowRight, ShieldCheck } from 'lucide-react';
 import { STATIONS, HOURLY_TELEMETRY } from '../data/mockData';
 
 export default function Bharati({ stationData }) {
+  const navigate = useNavigate();
   const station = (stationData && stationData.id === 'bharati') ? stationData : STATIONS.bharati;
 
   return (
@@ -37,43 +39,51 @@ export default function Bharati({ stationData }) {
       {/* Hero Interactive Digital Twin Screen */}
       <DigitalTwin stationData={station} stationId="bharati" />
 
-      {/* Subsystem Telemetry Quick Cards */}
+      {/* Subsystem Telemetry Quick Cards (Logically Linked) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Promontory Wind Turbines"
           value="38"
           unit="kW"
+          icon={Wind}
           trend="+14% share"
           trendDirection="up"
           status="normal"
-          subtext="24 km/h Katabatic Breeze"
+          subtext="24 km/h Katabatic Breeze • Click for Energy"
+          onClick={() => navigate('/energy')}
         />
         <StatCard
           title="SWRO Desalination Plant"
           value="2.8"
           unit="m³/d"
+          icon={Waves}
           trend="120 ppm TDS"
           trendDirection="neutral"
           status="normal"
-          subtext="Potable Ocean Water Conversion"
+          subtext="Potable Ocean Conversion • Click for SCADA"
+          onClick={() => navigate('/infrastructure')}
         />
         <StatCard
           title="ISRO Remote Sensing Radome"
           value="120"
           unit="Mbps"
+          icon={Radio}
           trend="320ms Latency"
           trendDirection="up"
           status="normal"
-          subtext="Cartosat-3 Downlink Active"
+          subtext="Cartosat-3 Downlink Active • Click for Ground Station"
+          onClick={() => navigate('/infrastructure')}
         />
         <StatCard
           title="Fuel Bunker Integrity"
           value="74"
           unit="%"
+          icon={Fuel}
           trend="188 Days"
           trendDirection="neutral"
           status="normal"
-          subtext="Double-Walled Heated Bund"
+          subtext="Double-Walled Heated Bund • Click for Inventory"
+          onClick={() => navigate('/inventory')}
         />
       </div>
 
@@ -88,6 +98,13 @@ export default function Bharati({ stationData }) {
               Hourly Wind + Solar + Diesel Generation vs. Demand
             </h3>
           </div>
+          <button
+            onClick={() => navigate('/energy')}
+            className="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1 cursor-pointer transition-colors"
+          >
+            <span>Analyze Microgrid</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
         <EnergyChart data={HOURLY_TELEMETRY} stationId="bharati" />
       </div>

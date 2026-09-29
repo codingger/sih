@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import DigitalTwin from '../components/DigitalTwin';
 import StatCard from '../components/StatCard';
 import EnergyChart from '../components/EnergyChart';
-import { Thermometer, Zap, Fuel, Activity, MapPin } from 'lucide-react';
+import { Thermometer, Zap, Fuel, Activity, Waves, ArrowRight, AlertTriangle } from 'lucide-react';
 import { STATIONS, HOURLY_TELEMETRY } from '../data/mockData';
 
 export default function Maitri({ stationData }) {
+  const navigate = useNavigate();
   const station = (stationData && stationData.id === 'maitri') ? stationData : STATIONS.maitri;
 
   return (
@@ -37,43 +39,51 @@ export default function Maitri({ stationData }) {
       {/* Hero Interactive Digital Twin Screen */}
       <DigitalTwin stationData={station} stationId="maitri" />
 
-      {/* Subsystem Telemetry Quick Cards */}
+      {/* Subsystem Telemetry Quick Cards (Logically Linked) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Lake Priyadarshini Intake"
           value="4.2"
           unit="°C"
+          icon={Waves}
           trend="Freeze Trace On"
           trendDirection="neutral"
           status="warning"
-          subtext="Potable Water Line Heated"
+          subtext="Potable Water Line Heated • Click for Water Inventory"
+          onClick={() => navigate('/inventory')}
         />
         <StatCard
           title="Generator #01 (Primary)"
           value="68"
           unit="% Load"
+          icon={Zap}
           trend="82°C Bearing"
           trendDirection="neutral"
           status="normal"
-          subtext="1500 RPM Nominal"
+          subtext="1500 RPM Nominal • Click for Equipment"
+          onClick={() => navigate('/equipment')}
         />
         <StatCard
           title="Generator #02 (Secondary)"
           value="94"
           unit="% Load"
+          icon={AlertTriangle}
           trend="104°C Critical"
           trendDirection="down"
           status="critical"
-          subtext="Bearing Vibration 4.8 mm/s"
+          subtext="Vibration 4.8 mm/s • Click for Diagnostics"
+          onClick={() => navigate('/equipment')}
         />
         <StatCard
           title="BESS Battery Storage"
           value="82"
           unit="% SOC"
+          icon={Activity}
           trend="240 kWh Available"
           trendDirection="up"
           status="normal"
-          subtext="Peak Shaving Ready"
+          subtext="Peak Shaving Ready • Click for Energy"
+          onClick={() => navigate('/energy')}
         />
       </div>
 
@@ -88,6 +98,13 @@ export default function Maitri({ stationData }) {
               Hourly Generation vs. Habitat Consumption
             </h3>
           </div>
+          <button
+            onClick={() => navigate('/energy')}
+            className="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1 cursor-pointer transition-colors"
+          >
+            <span>Analyze Microgrid</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
         <EnergyChart data={HOURLY_TELEMETRY} stationId="maitri" />
       </div>
